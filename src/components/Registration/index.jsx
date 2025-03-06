@@ -31,7 +31,7 @@ const RegistrationForm = () => {
             value={formik.values.fullName}
             onChange={formik.handleChange}
           />
-          {formik.errors.fullName && (
+          {formik.errors.fullName && formik.touched.fullName && (
             <p className="font-roboto text-red-500 text-sm mb-5">
               {formik.errors.fullName}
             </p>
@@ -44,7 +44,7 @@ const RegistrationForm = () => {
             value={formik.values.email}
             onChange={formik.handleChange}
           />
-          {formik.errors.email && (
+          {formik.errors.email && formik.touched.email && (
             <p className="font-roboto text-red-500 text-sm mb-5">
               {formik.errors.email}
             </p>
@@ -57,7 +57,7 @@ const RegistrationForm = () => {
             value={formik.values.password}
             onChange={formik.handleChange}
           />
-          {formik.errors.password && (
+          {formik.errors.password && formik.touched.password && (
             <p className="font-roboto text-red-500 text-sm mb-5">
               {formik.errors.password}
             </p>
