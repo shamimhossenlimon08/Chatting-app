@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
     "@tailwindcss/vite": "^4.0.7",
+    "firebase": "^11.4.0",
     "formik": "^2.4.6",
     "lottie-react": "^2.4.1",
     "react": "^19.0.0",

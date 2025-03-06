@@ -63,7 +63,7 @@ const RegistrationForm = () => {
             </p>
           )}
 
-          <button className="w-full bg-slate-900 text-white text-base rounded-md py-3 font-roboto font-bold">
+          <button className="w-full bg-slate-900 text-white text-base rounded-md py-3 font-roboto font-bold cursor-pointer">
             Sign Up
           </button>
         </form>
