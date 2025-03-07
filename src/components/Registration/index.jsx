@@ -1,8 +1,11 @@
 import { useFormik } from "formik";
 import React from "react";
 import { signUp } from "../../validation/Validation";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const RegistrationForm = () => {
+  const auth = getAuth();
+
   const initialValues = {
     fullName: "",
     email: "",
@@ -10,10 +13,27 @@ const RegistrationForm = () => {
   };
   const formik = useFormik({
     initialValues,
-    onSubmit: console.log("submited"),
+    onSubmit: () => {
+      createNewUser();
+    },
     validationSchema: signUp,
   });
-  console.log(formik);
+
+  const createNewUser = () => {
+    createUserWithEmailAndPassword(
+      auth,
+      formik.values.email,
+      formik.values.password
+    )
+      .then(() => {
+        console.log("submited");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  // console.log(formik);
 
   return (
     <>
