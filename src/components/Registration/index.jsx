@@ -1,9 +1,15 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { signUp } from "../../validation/Validation";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
+import { ClipLoader } from "react-spinners";
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ toast }) => {
+  const [loading, setLoading] = useState(false);
   const auth = getAuth();
 
   const initialValues = {
@@ -20,16 +26,54 @@ const RegistrationForm = () => {
   });
 
   const createNewUser = () => {
+    setLoading(true);
     createUserWithEmailAndPassword(
       auth,
       formik.values.email,
       formik.values.password
     )
       .then(() => {
-        console.log("submited");
+        sendEmailVerification(auth.currentUser)
+          .then(() => {
+            toast.success("Email sent for verification", {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: true,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            setLoading(false);
+          })
+          .catch((error) => {
+            toast.error(error.message, {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: true,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          });
       })
       .catch((error) => {
-        console.log(error.message);
+        if (error.message.includes("auth/email-already-in-use")) {
+          toast.error("Email already in use", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          setLoading(false);
+        }
       });
   };
 
@@ -83,8 +127,11 @@ const RegistrationForm = () => {
             </p>
           )}
 
-          <button className="w-full bg-slate-900 text-white text-base rounded-md py-3 font-roboto font-bold cursor-pointer">
-            Sign Up
+          <button
+            disabled={loading}
+            className="w-full bg-slate-900 text-white text-base rounded-md py-3 font-roboto font-bold cursor-pointer"
+          >
+            {loading ? <ClipLoader color="#fff" size={25} /> : "Sign Up"}
           </button>
         </form>
         <p className="text-gray-500 text-base font-roboto mt-5 ">
