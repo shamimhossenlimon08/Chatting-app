@@ -9,4 +9,7 @@ export const signUp = Yup.object({
       "must be use at least a number, and at least a special character"
     )
     .required("Please enter your password"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "wrong password")
+    .required("Please enter your confirm pasword"),
 });

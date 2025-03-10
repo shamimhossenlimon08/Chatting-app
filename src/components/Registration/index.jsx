@@ -16,6 +16,7 @@ const RegistrationForm = ({ toast }) => {
     fullName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   };
   const formik = useFormik({
     initialValues,
@@ -77,7 +78,7 @@ const RegistrationForm = ({ toast }) => {
       });
   };
 
-  // console.log(formik);
+  console.log(formik);
 
   return (
     <>
@@ -124,6 +125,19 @@ const RegistrationForm = ({ toast }) => {
           {formik.errors.password && formik.touched.password && (
             <p className="font-roboto text-red-500 text-sm mb-5">
               {formik.errors.password}
+            </p>
+          )}
+          <input
+            type="password"
+            placeholder="Enter your confirm password"
+            className="w-full px-3 py-2 border border-slate-400 rounded-md outline-none mb-3"
+            name="confirmPassword"
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.confirmPassword && formik.touched.confirmPassword && (
+            <p className="font-roboto text-red-500 text-sm mb-5">
+              {formik.errors.confirmPassword}
             </p>
           )}
 
