@@ -6,11 +6,13 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
-import { ClipLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
+import { Link, useNavigate } from "react-router";
 
 const RegistrationForm = ({ toast }) => {
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
+  const navigate = useNavigate();
 
   const initialValues = {
     fullName: "",
@@ -46,6 +48,14 @@ const RegistrationForm = ({ toast }) => {
               progress: undefined,
               theme: "light",
             });
+            const timeoutId = setTimeout(() => {
+              navigate("/login");
+            }, 2000);
+
+            setTimeout(() => {
+              clearTimeout(timeoutId);
+            }, 2000);
+
             setLoading(false);
           })
           .catch((error) => {
@@ -73,19 +83,17 @@ const RegistrationForm = ({ toast }) => {
             progress: undefined,
             theme: "light",
           });
-          setLoading(false);
         }
+        setLoading(false);
       });
   };
-
-  console.log(formik);
 
   return (
     <>
       <div>
-        <div className="text-center mb-4 text-2xl">
-          <h1 className="font-texturina font-normal ">Registration</h1>
-        </div>
+        <h1 className=" text-center text-2xl font-texturina font-normal mb-4">
+          Registration
+        </h1>
 
         <form onSubmit={formik.handleSubmit}>
           <input
@@ -145,11 +153,14 @@ const RegistrationForm = ({ toast }) => {
             disabled={loading}
             className="w-full bg-slate-900 text-white text-base rounded-md py-3 font-roboto font-bold cursor-pointer"
           >
-            {loading ? <ClipLoader color="#fff" size={25} /> : "Sign Up"}
+            {loading ? <BeatLoader color="#fff" size={10} /> : "Sign Up"}
           </button>
         </form>
         <p className="text-gray-500 text-base font-roboto mt-5 ">
-          Already have an acoount? Sign in
+          Already have an acoount?
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Sign in
+          </Link>
         </p>
       </div>
     </>
