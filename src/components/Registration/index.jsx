@@ -48,15 +48,11 @@ const RegistrationForm = ({ toast }) => {
               progress: undefined,
               theme: "light",
             });
+            setLoading(false);
             const timeoutId = setTimeout(() => {
               navigate("/login");
             }, 2000);
-
-            setTimeout(() => {
-              clearTimeout(timeoutId);
-            }, 2000);
-
-            setLoading(false);
+            return () => clearTimeout(timeoutId);
           })
           .catch((error) => {
             toast.error(error.message, {
