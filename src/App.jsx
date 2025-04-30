@@ -4,13 +4,18 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import LoggedInUserRoute from "./privateRoute/LoggedInUserRoute";
 import NotLoggedInUserRoute from "./privateRoute/NotLoggedInUserRoute";
+import Messages from "./pages/Messages";
+import RootLayout from "./RootLayout";
 
 function App() {
   return (
     <>
       <Routes>
         <Route element={<LoggedInUserRoute />}>
-          <Route path="/" element={<Home />} />
+          <Route element={<RootLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/message" element={<Messages />} />
+          </Route>
         </Route>
         <Route element={<NotLoggedInUserRoute />}>
           <Route path="/registration" element={<Registration />} />
