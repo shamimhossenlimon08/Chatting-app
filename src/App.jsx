@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import LoggedInUserRoute from "./privateRoute/LoggedInUserRoute";
 import NotLoggedInUserRoute from "./privateRoute/NotLoggedInUserRoute";
 import Messages from "./pages/Messages";
-import RootLayout from "./RootLayout";
+import RootLayout from "./components/RootLayout";
 
 function App() {
   return (
