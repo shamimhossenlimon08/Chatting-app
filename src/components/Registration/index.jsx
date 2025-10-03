@@ -5,14 +5,17 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { BeatLoader } from "react-spinners";
 import { Link, useNavigate } from "react-router";
+import { getDatabase, ref, set } from "firebase/database";
 
 const RegistrationForm = ({ toast }) => {
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
   const navigate = useNavigate();
+  const db = getDatabase();
 
   const initialValues = {
     fullName: "",
@@ -35,24 +38,35 @@ const RegistrationForm = ({ toast }) => {
       formik.values.email,
       formik.values.password
     )
-      .then(() => {
-        sendEmailVerification(auth.currentUser)
+      .then(({ user }) => {
+        updateProfile(auth.currentUser, {
+          displayName: formik.values.fullName,
+        })
           .then(() => {
-            toast.success("Email sent for verification", {
-              position: "top-right",
-              autoClose: 1000,
-              hideProgressBar: true,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
+            sendEmailVerification(auth.currentUser).then(() => {
+              toast.success("Email sent for verification", {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+              setLoading(false);
+              const timeoutId = setTimeout(() => {
+                navigate("/login");
+              }, 2000);
+              return () => clearTimeout(timeoutId);
             });
-            setLoading(false);
-            const timeoutId = setTimeout(() => {
-              navigate("/login");
-            }, 2000);
-            return () => clearTimeout(timeoutId);
+          })
+
+          .then(() => {
+            set(ref(db, "users/" + user.uid), {
+              username: user.displayName,
+              email: user.email,
+            });
           })
           .catch((error) => {
             toast.error(error.message, {

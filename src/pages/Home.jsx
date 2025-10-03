@@ -1,7 +1,7 @@
 import React from "react";
 import UserLists from "../components/UserList";
 import FriendRequest from "../components/FriendRequest";
-import Friends from "../components/Friens";
+import Friends from "../components/Friends";
 const Home = () => {
   return (
     <>
