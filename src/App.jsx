@@ -7,12 +7,14 @@ import NotLoggedInUserRoute from "./privateRoute/NotLoggedInUserRoute";
 import Messages from "./pages/Messages";
 import RootLayout from "./components/RootLayout";
 import "cropperjs/dist/cropper.css";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
     <>
       <Routes>
         <Route element={<LoggedInUserRoute />}>
+          <Route path="/profile" element={<Profile />} />
           <Route element={<RootLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/message" element={<Messages />} />

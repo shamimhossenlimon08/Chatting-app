@@ -29,6 +29,18 @@ const Friends = () => {
     });
   }, [db, user.uid]);
 
+  // handle profile
+
+  const handleProfile = (item) => {
+    const friendInfo = {
+      id: user.uid === item.senderId ? item.receiverId : item.senderId,
+      name: user.uid === item.senderId ? item.receiverName : item.senderName,
+      profile:
+        user.uid === item.senderId ? item.receiverProfile : item.senderProfile,
+    };
+    navigate("/profile", { state: friendInfo });
+  };
+
   return (
     <>
       <div className="shadow-md rounded-md p-5  bg-white h-[408px] overflow-y-auto">
@@ -47,7 +59,10 @@ const Friends = () => {
         </div>
         {friends?.map((item) => (
           <div className="flex items-center justify-between mt-5" key={item.id}>
-            <div className="flex items-center gap-x-2">
+            <div
+              className="flex items-center gap-x-2  hover:bg-slate-100 cursor-pointer px-1 rounded w-[600px]"
+              onClick={() => handleProfile(item)}
+            >
               <div className="w-12 h-12 rounded-full  overflow-hidden shrink-0">
                 {user.uid === item.receiverId ? (
                   <img src={item.currentProfile || avatarImage} alt="" />
