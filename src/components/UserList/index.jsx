@@ -12,6 +12,7 @@ import {
 import { useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref as Ref } from "firebase/storage";
 import avatarImage from "../../assets/avatar-img/avatar-male.jpg";
+import { useNavigate } from "react-router";
 
 const UserLists = () => {
   const user = useSelector((state) => state.login.loggedIn);
@@ -22,6 +23,7 @@ const UserLists = () => {
   const [friends, setFriends] = useState([]);
   const [friendsOpen, setFriendsOpen] = useState([]);
   const [unfriends, setUnfriends] = useState([]);
+  const navigate = useNavigate();
 
   const db = getDatabase();
   const storage = getStorage();
@@ -146,10 +148,15 @@ const UserLists = () => {
         {users.map((item, i) => (
           <div className="flex items-center justify-between mt-5" key={i}>
             <div className="flex  items-center gap-x-2">
-              <div className="w-12 h-12 rounded-full bg-purple-500 overflow-hidden">
+              <div className="w-12 h-12 rounded-full object-cover overflow-hidden">
                 <img src={item.photoURL || avatarImage} alt="" />
               </div>
-              <h3 className="font-sans text-xl ">{item.username}</h3>
+              <h3
+                className="font-sans text-xl cursor-pointer "
+                onClick={() => navigate("/profile", { state: item })}
+              >
+                {item.username}
+              </h3>
             </div>
             {/* 🔹 Already Friends */}
             {friends.includes(item.id + user.uid) ||

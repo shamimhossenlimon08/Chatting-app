@@ -33,7 +33,7 @@ const Friends = () => {
 
   const handleProfile = (item) => {
     const friendInfo = {
-      id: user.uid === item.senderId ? item.receiverId : item.senderId,
+      friendId: user.uid === item.senderId ? item.receiverId : item.senderId,
       name: user.uid === item.senderId ? item.receiverName : item.senderName,
       profile:
         user.uid === item.senderId ? item.receiverProfile : item.senderProfile,
