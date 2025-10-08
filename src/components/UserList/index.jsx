@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AddFriendIcon } from "../../svg/AddFriendIcon";
 import { FiSearch } from "react-icons/fi";
 import {
@@ -21,8 +21,7 @@ const UserLists = () => {
   const [respondOpen, setRespondOpen] = useState(null);
   const [cancelReq, setCancelReq] = useState([]);
   const [friends, setFriends] = useState([]);
-  const [friendsOpen, setFriendsOpen] = useState([]);
-  const [unfriends, setUnfriends] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const db = getDatabase();
@@ -128,6 +127,12 @@ const UserLists = () => {
     setRespondOpen(null); // Close the respond panel after deletion
   };
 
+  // Filter users based on search term then filteredusers used in map function
+
+  const filteredUsers = users.filter((item) =>
+    item.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="  p-5 mr-5 bg-[#FBFBFB] h-[408px] overflow-y-auto ">
@@ -138,6 +143,8 @@ const UserLists = () => {
               type="text"
               placeholder="Search..."
               className="border-2 border-gray-300 rounded-full  py-1 pl-11 focus:outline-none focus:border-blue-900 w-45"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <div className=" text-xl absolute top-[50%] left-3 translate-y-[-50%] ">
               <FiSearch />
@@ -145,7 +152,7 @@ const UserLists = () => {
           </div>
         </div>
 
-        {users.map((item, i) => (
+        {filteredUsers.map((item, i) => (
           <div className="flex items-center justify-between mt-5" key={i}>
             <div className="flex  items-center gap-x-2">
               <div className="w-12 h-12 rounded-full object-cover overflow-hidden">

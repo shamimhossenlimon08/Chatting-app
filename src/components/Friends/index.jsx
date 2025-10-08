@@ -8,6 +8,7 @@ import avatarImage from "../../assets/avatar-img/avatar-male.jpg";
 const Friends = () => {
   const user = useSelector((state) => state.login.loggedIn);
   const [friends, setfriends] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -41,6 +42,14 @@ const Friends = () => {
     navigate("/profile", { state: friendInfo });
   };
 
+  // filter friends based on search term then use filteredfriends in map function
+
+  const filteredFriends = friends.filter((item) =>
+    (user.uid === item.senderId ? item.receiverName : item.senderName)
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="shadow-md rounded-md p-5  bg-white h-[408px] overflow-y-auto">
@@ -51,13 +60,15 @@ const Friends = () => {
               type="text"
               placeholder="Search..."
               className="w-45 border-2 border-gray-300 rounded-full  py-1 pl-11 focus:outline-none focus:border-blue-900 "
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <div className=" text-xl absolute top-[50%] left-3 translate-y-[-50%]">
               <FiSearch />
             </div>
           </div>
         </div>
-        {friends?.map((item) => (
+        {filteredFriends?.map((item) => (
           <div className="flex items-center justify-between mt-5" key={item.id}>
             <div
               className="flex items-center gap-x-2  hover:bg-slate-100 cursor-pointer px-1 rounded w-[600px]"

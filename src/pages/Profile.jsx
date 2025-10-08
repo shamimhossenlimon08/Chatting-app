@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
 import { RiMessengerFill } from "react-icons/ri";
 import Navbar from "../components/navbar/Navbar";
@@ -27,7 +27,7 @@ const Profile = () => {
       });
       setFriends(friendsArr);
     });
-  }, []);
+  }, [db, user.uid]);
 
   const profileUid = data?.friendId || data?.id;
   const isFriend = friends.some(
