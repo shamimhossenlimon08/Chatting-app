@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
 import { RiMessengerFill } from "react-icons/ri";
 import Navbar from "../components/navbar/Navbar";
 import { useLocation, useNavigate } from "react-router";
 import avatarImage from "../assets/avatar-img/avatar-male.jpg";
 import { AddFriendIcon } from "../svg/AddFriendIcon";
-import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  push,
+  ref,
+  remove,
+  set,
+} from "firebase/database";
 import { useSelector } from "react-redux";
 import FriendsProfileBtnMenu from "../components/Pop-up";
 
@@ -13,6 +20,7 @@ const Profile = () => {
   const user = useSelector((state) => state.login.loggedIn);
   const [friends, setFriends] = useState([]);
   const [openFriendsMenu, setOpenFriendsMenu] = useState(false);
+  const [friendRequest, setFriendRequest] = useState([]);
   const location = useLocation();
   const data = location.state;
   const db = getDatabase();
@@ -41,7 +49,7 @@ const Profile = () => {
     setOpenFriendsMenu(!openFriendsMenu);
   };
 
-  // Add friend handler
+  // Add friend handler and cancel friend request handler
 
   const handleAddFriend = () => {
     set(push(ref(db, "friendRequest/")), {
@@ -51,6 +59,32 @@ const Profile = () => {
       receiverId: profileUid,
       receiverName: data?.name || data?.username,
       receiverProfile: data?.profile || data?.photoURL || avatarImage,
+    });
+  };
+
+  // handle cancel friend request
+
+  useEffect(() => {
+    const friendReqRef = ref(db, "friendRequest/");
+    onValue(friendReqRef, (snapshot) => {
+      const cancelReqArr = [];
+      snapshot.forEach((item) => {
+        cancelReqArr.push({ ...item.val(), id: item.key });
+      });
+      setFriendRequest(cancelReqArr);
+    });
+  }, [db]);
+
+  // 🔹 Check if friend request sent
+  const isRequestSent = friendRequest.some(
+    (item) => item.senderId === user.uid && item.receiverId === profileUid
+  );
+
+  const handleCancelReq = () => {
+    friendRequest.find((item) => {
+      if (item.senderId === user.uid && item.receiverId === profileUid) {
+        remove(ref(db, "friendRequest/" + item.id));
+      }
     });
   };
 
@@ -92,6 +126,15 @@ const Profile = () => {
                           friendId={data?.friendId || data?.id}
                         />
                       )}
+                    </button>
+                  ) : isRequestSent ? (
+                    <button
+                      className="bg-white shadow-2xl text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer"
+                      onClick={handleCancelReq}
+                    >
+                      <div className="flex items-center gap-x-2">
+                        <p>Cancel Request</p>
+                      </div>
                     </button>
                   ) : (
                     <button
