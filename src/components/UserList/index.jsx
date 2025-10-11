@@ -135,7 +135,7 @@ const UserLists = () => {
 
   return (
     <>
-      <div className="  p-5 mr-5 bg-[#FBFBFB] h-[408px] overflow-y-auto ">
+      <div className="  p-5 mr-5 shadow-md bg-gradient-to-b from-white/80 to-white/50 h-full overflow-y-auto  rounded-md">
         <div className="flex items-center justify-between ">
           <h1 className="font-roboto font-bold text-lg">All Users </h1>
           <div className="flex items-center relative">
@@ -154,14 +154,14 @@ const UserLists = () => {
 
         {filteredUsers.map((item, i) => (
           <div className="flex items-center justify-between mt-5" key={i}>
-            <div className="flex  items-center gap-x-2">
-              <div className="w-12 h-12 rounded-full object-cover overflow-hidden">
+            <div
+              className="flex  items-center gap-x-2"
+              onClick={() => navigate("/profile", { state: item })}
+            >
+              <div className="w-12 h-12 rounded-full object-cover overflow-hidden cursor-pointer">
                 <img src={item.photoURL || avatarImage} alt="" />
               </div>
-              <h3
-                className="font-sans text-xl cursor-pointer "
-                onClick={() => navigate("/profile", { state: item })}
-              >
+              <h3 className="font-sans text-xl hover: cursor-pointer hover:underline ">
                 {item.username}
               </h3>
             </div>

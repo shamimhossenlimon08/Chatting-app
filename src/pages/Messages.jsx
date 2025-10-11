@@ -6,7 +6,7 @@ import Friends from "../components/Friends";
 const Messages = () => {
   return (
     <>
-      <div className="grid grid-cols-[2fr_4fr] ">
+      <div className="h-full w-full grid grid-cols-[2fr_4fr] gap-x-3 ">
         <div className="w-full ">
           <Friends />
         </div>

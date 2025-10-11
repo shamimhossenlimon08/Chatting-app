@@ -5,11 +5,11 @@ import Friends from "../components/Friends";
 const Home = () => {
   return (
     <>
-      <div className="grid grid-cols-[2fr_4fr] ">
+      <div className="h-full w-full grid grid-cols-[2fr_4fr]  ">
         <div className="w-full ">
           <UserLists />
         </div>
-        <div className=" w-full grid grid-cols-2 gap-x-10 ">
+        <div className=" w-full grid grid-cols-2 gap-x-6 ">
           <div>
             <FriendRequest />
           </div>

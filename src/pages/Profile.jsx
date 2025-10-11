@@ -21,6 +21,11 @@ const Profile = () => {
   const [friends, setFriends] = useState([]);
   const [openFriendsMenu, setOpenFriendsMenu] = useState(false);
   const [friendRequest, setFriendRequest] = useState([]);
+  const [showRespondOptions, setShowRespondOptions] = useState(false);
+  const [isFriendState, setIsFriendState] = useState(false);
+
+  const [isRequestState, setIsRequestState] = useState(false);
+
   const location = useLocation();
   const data = location.state;
   const db = getDatabase();
@@ -49,7 +54,7 @@ const Profile = () => {
     setOpenFriendsMenu(!openFriendsMenu);
   };
 
-  // Add friend handler and cancel friend request handler
+  // Add friend handler
 
   const handleAddFriend = () => {
     set(push(ref(db, "friendRequest/")), {
@@ -88,46 +93,141 @@ const Profile = () => {
     });
   };
 
+  //  friend request user show in profile page
+  const isFriendRequest = !!data?.friendReqId || data?.id;
+
+  // handle respond button
+  const handleRespondReq = () => {
+    setShowRespondOptions(true);
+  };
+
+  // confirm friend request
+  const handleConfirm = () => {
+    const req = friendRequest.find(
+      (item) =>
+        item.receiverId === user.uid &&
+        item.senderId === (data.friendReqId || data.id)
+    );
+
+    if (req) {
+      set(push(ref(db, "friends/")), {
+        senderId: req.senderId,
+        senderName: req.senderName,
+        senderProfile: req.senderProfile || avatarImage,
+        receiverId: user.uid,
+        receiverName: user.displayName,
+        receiverProfile: user.photoURL || avatarImage,
+      })
+        .then(() => {
+          remove(ref(db, "friendRequest/" + req.id));
+          setShowRespondOptions(false);
+          setIsFriendState(true); // friend হলে Friends button দেখাবে
+          setIsRequestState(false); // আর Respond button দেখাবে না
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  // friend request remove
+
+  const handleDelete = () => {
+    const req = friendRequest.find(
+      (item) =>
+        item.receiverId === user.uid &&
+        item.senderId === (data.friendReqId || data.id)
+    );
+
+    if (req) {
+      remove(ref(db, "friendRequest/" + req.id))
+        .then(() => {
+          setShowRespondOptions(false);
+          setIsRequestState(false); // Delete করলে Respond button আর দেখাবে না
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+  // location er data er modde friendReqId thakle isRequestState true kore dibe jate Respond button ta show kore. are data er modde vlue thakle tokon e useEffect ti run korbe
+  useEffect(() => {
+    if (isFriendRequest) {
+      setIsRequestState(true);
+    }
+  }, [data]);
+
   return (
     <>
       <div>
-        <Navbar />
-        <div className="h-screen w-full">
+        <div className="fixed top-0 left-0 w-full ">
+          <Navbar />
+        </div>
+        <div className="h-screen w-full mt-19">
           <div className="bg-[rgba(255,252,252,0.5)]  h-[70%] w-full">
-            <div className="bg-[rgba(174,173,177,0.5)] h-[60%] w-[70%] mx-auto rounded-b-md"></div>
+            <div className="bg-[rgba(174,173,177,0.5)] h-[50%] w-[70%] mx-auto rounded-b-md"></div>
             <div className="bg-white h-[40%] w-[65%] mx-auto ">
               <div className="flex items-center justify-between">
                 <div className="flex gap-x-3 ">
                   <div className=" w-[180px] h-[180px] rounded-[50%] translate-y-[-30%] cursor-pointer overflow-hidden">
                     <img
-                      src={data?.profile || data?.photoURL || avatarImage}
+                      src={
+                        data?.reqProfile ||
+                        data?.profile ||
+                        data?.photoURL ||
+                        avatarImage
+                      }
                       alt=""
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <h3 className=" text-5xl font-semibold mt-6 ">
-                    {data?.name || data?.username}
+                    {data?.reqName || data?.name || data?.username}
                   </h3>
                 </div>
 
                 <div className="flex gap-x-6">
-                  {isFriend ? (
+                  {isRequestState ? (
+                    showRespondOptions ? (
+                      // Confirm + Delete
+                      <div className="flex gap-x-3">
+                        <button
+                          className="bg-green-500 hover:bg-green-600 transition text-white text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer"
+                          onClick={handleConfirm}
+                        >
+                          Confirm
+                        </button>
+                        <button
+                          className="bg-red-500 hover:bg-red-600 transition text-white text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer"
+                          onClick={handleDelete}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    ) : (
+                      // Respond button
+                      <button
+                        className="bg-green-500  hover:bg-green-600 transition text-white text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer"
+                        onClick={handleRespondReq}
+                      >
+                        <div className="flex items-center gap-x-2">
+                          <FaUserCheck className="text-2xl" />
+                          <p>Respond</p>
+                        </div>
+                      </button>
+                    )
+                  ) : isFriendState || isFriend ? (
+                    // Friends button
                     <button
-                      className="bg-[rgba(197,192,192,0.5)] text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer "
+                      className="bg-[rgba(197,192,192,0.5)] text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer "
                       onClick={handleFriendsMenu}
                     >
                       <div className="flex items-center gap-x-2 ">
-                        <FaUserCheck className="text-2xl" />
+                        <div className="text-2xl">
+                          <FaUserCheck />
+                        </div>
+
                         <p>Friends</p>
                       </div>
-                      {openFriendsMenu && (
-                        <FriendsProfileBtnMenu
-                          setOpenFriendsMenu={setOpenFriendsMenu}
-                          friendId={data?.friendId || data?.id}
-                        />
-                      )}
                     </button>
                   ) : isRequestSent ? (
+                    // Cancel Request button
                     <button
                       className="bg-white shadow-2xl text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer"
                       onClick={handleCancelReq}
@@ -137,6 +237,7 @@ const Profile = () => {
                       </div>
                     </button>
                   ) : (
+                    // Add Friend button
                     <button
                       className="bg-[rgba(156,202,252,0.5)] text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer"
                       onClick={handleAddFriend}
@@ -170,6 +271,12 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      {openFriendsMenu && (
+        <FriendsProfileBtnMenu
+          setOpenFriendsMenu={setOpenFriendsMenu}
+          friendId={data?.friendId || data?.id}
+        />
+      )}
     </>
   );
 };

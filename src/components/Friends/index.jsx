@@ -52,7 +52,7 @@ const Friends = () => {
 
   return (
     <>
-      <div className="shadow-md rounded-md p-5  bg-white h-[408px] overflow-y-auto">
+      <div className="shadow-md rounded-md p-5  bg-gradient-to-b from-white/80 to-white/50 h-full overflow-y-auto">
         <div className="flex items-center justify-between ">
           <h1 className="font-roboto font-bold text-lg">All Friends</h1>
           <div className="flex items-center relative">
@@ -97,6 +97,11 @@ const Friends = () => {
             )}
           </div>
         ))}
+        {filteredFriends.length === 0 && (
+          <h3 className="text-center mt-67 font-sans text-lg">
+            No Friend Found
+          </h3>
+        )}
       </div>
     </>
   );
