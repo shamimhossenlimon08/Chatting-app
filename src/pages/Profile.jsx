@@ -146,7 +146,7 @@ const Profile = () => {
         .catch((err) => console.log(err));
     }
   };
-  // location er data er modde friendReqId thakle isRequestState true kore dibe jate Respond button ta show kore. are data er modde vlue thakle tokon e useEffect ti run korbe
+  // location er data er modde friendReqId thakle isRequestState true kore dibe jate Respond button ta show kore. are data er modde value thakle tokon e useEffect ti run korbe
   useEffect(() => {
     if (isFriendRequest) {
       setIsRequestState(true);

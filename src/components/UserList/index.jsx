@@ -135,9 +135,9 @@ const UserLists = () => {
 
   return (
     <>
-      <div className="  p-5 mr-5 shadow-md bg-gradient-to-b from-white/80 to-white/50 h-full overflow-y-auto  rounded-md">
+      <div className="  p-5 mr-5 shadow-md bg-gradient-to-b from-white/80 to-white/50 h-[800px]  overflow-y-auto  rounded-md">
         <div className="flex items-center justify-between ">
-          <h1 className="font-roboto font-bold text-lg">All Users </h1>
+          <h1 className="font-roboto font-bold text-xl">All Users </h1>
           <div className="flex items-center relative">
             <input
               type="text"
@@ -161,7 +161,7 @@ const UserLists = () => {
               <div className="w-12 h-12 rounded-full object-cover overflow-hidden cursor-pointer">
                 <img src={item.photoURL || avatarImage} alt="" />
               </div>
-              <h3 className="font-sans text-xl hover: cursor-pointer hover:underline ">
+              <h3 className="font-sans text-xl font-semibold text-[#1e1e1e]  hover: cursor-pointer hover:underline ">
                 {item.username}
               </h3>
             </div>

@@ -52,9 +52,9 @@ const Friends = () => {
 
   return (
     <>
-      <div className="shadow-md rounded-md p-5  bg-gradient-to-b from-white/80 to-white/50 h-full overflow-y-auto">
+      <div className="shadow-md rounded-md p-5  bg-gradient-to-b from-white/80 to-white/50 h-[800px]  overflow-y-auto">
         <div className="flex items-center justify-between ">
-          <h1 className="font-roboto font-bold text-lg">All Friends</h1>
+          <h1 className="font-roboto font-bold text-xl">All Friends</h1>
           <div className="flex items-center relative">
             <input
               type="text"
@@ -81,7 +81,7 @@ const Friends = () => {
                   <img src={item.receiverProfile || avatarImage} alt="" />
                 )}
               </div>
-              <h3 className="font-sans text-xl">
+              <h3 className="font-sans text-xl font-semibold text-[#1e1e1e]">
                 {user.uid === item.senderId
                   ? item.receiverName
                   : item.senderName}
@@ -98,7 +98,7 @@ const Friends = () => {
           </div>
         ))}
         {filteredFriends.length === 0 && (
-          <h3 className="text-center mt-67 font-sans text-lg">
+          <h3 className="text-center mt-67 font-sans text-xl">
             No Friend Found
           </h3>
         )}

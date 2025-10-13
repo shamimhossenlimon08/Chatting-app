@@ -59,8 +59,8 @@ const FriendRequest = () => {
 
   return (
     <>
-      <div className="shadow-md rounded-md py-5 pl-5 pr-3 bg-gradient-to-b from-white/80 to-white/50 h-full overflow-y-auto">
-        <h1 className="font-roboto font-bold text-lg">Friend Requests</h1>
+      <div className="shadow-md rounded-md py-5 pl-5 pr-3 bg-gradient-to-b from-white/80 to-white/50 h-[800px] overflow-y-auto">
+        <h1 className="font-roboto font-bold text-xl">Friend Requests</h1>
         {friendReqList?.map((item) => (
           <div className="flex items-center justify-between mt-5" key={item.id}>
             <div
@@ -70,7 +70,7 @@ const FriendRequest = () => {
               <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 cursor-pointer">
                 <img src={item.currentProfile || avatarImage} />
               </div>
-              <h3 className="font-sans text-xl hover:cursor-pointer hover:underline">
+              <h3 className="font-sans text-xl font-semibold text-[#1e1e1e] hover:cursor-pointer hover:underline">
                 {item.senderName}
               </h3>
             </div>
@@ -91,7 +91,7 @@ const FriendRequest = () => {
           </div>
         ))}
         {friendReqList.length === 0 && (
-          <h3 className="text-center mt-70 font-sans text-lg">
+          <h3 className="text-center mt-70 font-sans text-xl    ">
             No Friend Request
           </h3>
         )}

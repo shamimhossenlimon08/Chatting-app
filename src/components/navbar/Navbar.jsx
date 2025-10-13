@@ -17,11 +17,11 @@ const Navbar = () => {
 
   return (
     <>
-      <div className=" w-full  mb-5">
+      <div className=" mb-5">
         <div className="  bg-gradient-to-r from-slate-800/90 to-emerald-900/90 flex items-center justify-between px-7  py-3 rounded-md ">
           <div className="flex items-center gap-x-2">
             <div className="relative">
-              <div className="w-14 h-14 bg-orange-200 rounded-full overflow-hidden">
+              <div className="w-14 h-14 rounded-full overflow-hidden">
                 <img
                   src={user.photoURL || avatarImage}
                   className="w-full h-full object-cover"
