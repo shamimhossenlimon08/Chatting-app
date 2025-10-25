@@ -6,7 +6,6 @@ import Friends from "../components/Friends";
 const Messages = () => {
   return (
     <>
-      {/* 800px */}
       <div className=" grid grid-cols-[2fr_4fr] gap-x-3 ">
         <div>
           <Friends />

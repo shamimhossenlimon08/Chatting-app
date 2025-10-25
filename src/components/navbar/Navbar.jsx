@@ -1,19 +1,21 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { FriendsIcon } from "../../svg/FriendsIcon";
 import { MessageIcon } from "../../svg/MessageIcon";
 import { Link, useLocation } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CameraIcon } from "../../svg/CameraIcon";
 import { createPortal } from "react-dom";
 import Modals from "../Modals";
 import avatarImage from "../../assets/avatar-img/avatar-male.jpg";
 import { LogOutConfirmModel } from "../Pop-up";
+import { getDatabase, onValue, ref } from "firebase/database";
 
 const Navbar = () => {
   const user = useSelector((state) => state.login.loggedIn);
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const db = getDatabase();
 
   return (
     <>
@@ -56,7 +58,7 @@ const Navbar = () => {
                 location.pathname == "/message"
                   ? "text-white bg-[#6CD0FB]"
                   : "text-[#292D32] bg-white"
-              } w-10 h-10  rounded-full flex items-center justify-center`}
+              } w-10 h-10  rounded-full flex items-center justify-center relative`}
             >
               <MessageIcon />
             </Link>

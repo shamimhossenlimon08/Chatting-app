@@ -158,8 +158,12 @@ const UserLists = () => {
               className="flex  items-center gap-x-2"
               onClick={() => navigate("/profile", { state: item })}
             >
-              <div className="w-12 h-12 rounded-full object-cover overflow-hidden cursor-pointer">
-                <img src={item.photoURL || avatarImage} alt="" />
+              <div className="w-12 h-12 rounded-full overflow-hidden cursor-pointer">
+                <img
+                  src={item.photoURL || avatarImage}
+                  alt=""
+                  className="w-full h-full object-cover "
+                />
               </div>
               <h3 className="font-sans text-xl font-semibold text-[#1e1e1e]  hover: cursor-pointer hover:underline ">
                 {item.username}

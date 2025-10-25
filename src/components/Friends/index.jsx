@@ -1,9 +1,10 @@
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { use, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 import avatarImage from "../../assets/avatar-img/avatar-male.jpg";
+import { ActiveSingle } from "../../features/Slices/ActiveSingleSlice";
 
 const Friends = () => {
   const user = useSelector((state) => state.login.loggedIn);
@@ -13,6 +14,7 @@ const Friends = () => {
   const navigate = useNavigate();
 
   const db = getDatabase();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const starCountRef = ref(db, "friends/");
@@ -30,7 +32,7 @@ const Friends = () => {
     });
   }, [db, user.uid]);
 
-  // handle profile
+  // handle profile page and chatting page in profile pic,name show
 
   const handleProfile = (item) => {
     const friendInfo = {
@@ -38,8 +40,17 @@ const Friends = () => {
       name: user.uid === item.senderId ? item.receiverName : item.senderName,
       profile:
         user.uid === item.senderId ? item.receiverProfile : item.senderProfile,
+      status: "single",
     };
-    navigate("/profile", { state: friendInfo });
+
+    if (location.pathname === "/message") {
+      dispatch(ActiveSingle(friendInfo));
+      localStorage.setItem("active", JSON.stringify(friendInfo));
+    } else if (location.pathname === "/") {
+      navigate("/profile", { state: friendInfo });
+    } else {
+      console.log("null");
+    }
   };
 
   // filter friends based on search term then use filteredfriends in map function

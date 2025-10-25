@@ -23,9 +23,6 @@ const Profile = () => {
   const [friendRequest, setFriendRequest] = useState([]);
   const [showRespondOptions, setShowRespondOptions] = useState(false);
   const [isFriendState, setIsFriendState] = useState(false);
-
-  const [isRequestState, setIsRequestState] = useState(false);
-
   const location = useLocation();
   const data = location.state;
   const db = getDatabase();
@@ -94,7 +91,10 @@ const Profile = () => {
   };
 
   //  friend request user show in profile page
-  const isFriendRequest = !!data?.friendReqId || data?.id;
+  // const isFriendRequest = data?.friendReqId || data?.id; // ei line er bodole nicher line ta use kora hoise jate real time e friend request er status ta pawa jai
+  const isFriendRequest = friendRequest.some(
+    (item) => item.receiverId === user.uid && item.senderId === profileUid
+  );
 
   // handle respond button
   const handleRespondReq = () => {
@@ -146,12 +146,12 @@ const Profile = () => {
         .catch((err) => console.log(err));
     }
   };
-  // location er data er modde friendReqId thakle isRequestState true kore dibe jate Respond button ta show kore. are data er modde value thakle tokon e useEffect ti run korbe
-  useEffect(() => {
-    if (isFriendRequest) {
-      setIsRequestState(true);
-    }
-  }, [data]);
+
+  // location er data er modde friendReqId thakle isRequestState true kore dibe jate Respond button ta show kore. are data er modde value thakle tokon e useEffect ti run korbe . "useEffect er dependency te new data add kora hoise". akon are ai useEffect lagbe na and isrequestState o lagbe na karon real time e friend request er status ta pawa jai friendRequest array theke
+
+  // useEffect(() => {
+  //   setIsRequestState(isFriendRequest);
+  // }, [isFriendRequest]);
 
   return (
     <>
@@ -183,7 +183,31 @@ const Profile = () => {
                 </div>
 
                 <div className="flex gap-x-6">
-                  {isRequestState ? (
+                  {isFriendState || isFriend ? (
+                    // Friends button
+                    <button
+                      className="bg-[rgba(197,192,192,0.5)] text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer "
+                      onClick={handleFriendsMenu}
+                    >
+                      <div className="flex items-center gap-x-2 ">
+                        <div className="text-2xl">
+                          <FaUserCheck />
+                        </div>
+
+                        <p>Friends</p>
+                      </div>
+                    </button>
+                  ) : isRequestSent ? (
+                    // Cancel Request button
+                    <button
+                      className="bg-white shadow-2xl text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer"
+                      onClick={handleCancelReq}
+                    >
+                      <div className="flex items-center gap-x-2">
+                        <p>Cancel Request</p>
+                      </div>
+                    </button>
+                  ) : isFriendRequest ? (
                     showRespondOptions ? (
                       // Confirm + Delete
                       <div className="flex gap-x-3">
@@ -212,30 +236,6 @@ const Profile = () => {
                         </div>
                       </button>
                     )
-                  ) : isFriendState || isFriend ? (
-                    // Friends button
-                    <button
-                      className="bg-[rgba(197,192,192,0.5)] text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer "
-                      onClick={handleFriendsMenu}
-                    >
-                      <div className="flex items-center gap-x-2 ">
-                        <div className="text-2xl">
-                          <FaUserCheck />
-                        </div>
-
-                        <p>Friends</p>
-                      </div>
-                    </button>
-                  ) : isRequestSent ? (
-                    // Cancel Request button
-                    <button
-                      className="bg-white shadow-2xl text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer"
-                      onClick={handleCancelReq}
-                    >
-                      <div className="flex items-center gap-x-2">
-                        <p>Cancel Request</p>
-                      </div>
-                    </button>
                   ) : (
                     // Add Friend button
                     <button
