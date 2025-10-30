@@ -7,7 +7,7 @@ const LiveTime = ({ date }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(moment());
-    }, 1000); // প্রতি 1 সেকেন্ডে আপডেট
+    }, 1000); // par 1 second update
 
     return () => clearInterval(interval);
   }, []);
@@ -16,7 +16,7 @@ const LiveTime = ({ date }) => {
 
   return (
     <span className="text-sm text-gray-500">
-      {secondsDiff < 30 ? "Sent just now" : `Sent ${moment(date).from(now)}`}
+      {secondsDiff < 10 ? "Sent just now" : `Sent ${moment(date).from(now)}`}
     </span>
   );
 };

@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 import React, { use, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,7 +65,9 @@ const Friends = () => {
     <>
       <div className="shadow-md rounded-md p-5  bg-gradient-to-b from-white/80 to-white/50 h-[800px]  overflow-y-auto">
         <div className="flex items-center justify-between ">
-          <h1 className="font-roboto font-bold text-xl">All Friends</h1>
+          <h1 className="font-roboto font-bold text-xl">
+            {location.pathname === "/message" ? "Messages" : " All Friends"}
+          </h1>
           <div className="flex items-center relative">
             <input
               type="text"
