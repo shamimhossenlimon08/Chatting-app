@@ -15,15 +15,16 @@ const Navbar = () => {
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showFriendsMenu, setShowFriendsMenu] = useState(false);
   const db = getDatabase();
 
   return (
     <>
-      <div className=" mb-5">
-        <div className="  bg-gradient-to-r from-slate-800/90 to-emerald-900/90 flex items-center justify-between px-7  py-3 rounded-md ">
+      <div className=" mb-5 w-full  ">
+        <div className="  bg-gradient-to-r from-slate-800/90 to-emerald-900/90 flex items-center justify-between px-2 md:px-7  py-3 rounded-md ">
           <div className="flex items-center gap-x-2">
             <div className="relative">
-              <div className="w-14 h-14 rounded-full overflow-hidden">
+              <div className="w-11 h-11 md:w-14 md:h-14 rounded-full overflow-hidden">
                 <img
                   src={user.photoURL || avatarImage}
                   className="w-full h-full object-cover"
@@ -37,35 +38,39 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div className="font-Roboto text-white text-3xl">
+            <div className="font-Roboto text-white text-xl md:text-3xl">
               {user.displayName}
             </div>
           </div>
           <div className="flex items-center gap-x-4 ">
-            <Link
-              to="/"
-              className={`${
-                location.pathname == "/"
-                  ? "text-white bg-[#6CD0FB]"
-                  : "text-[#292D32] bg-white "
-              }  w-10 h-10 rounded-full flex items-center justify-center`}
-            >
-              <FriendsIcon />
-            </Link>
+            <div>
+              <Link
+                onClick={() => setShowFriendsMenu(!showFriendsMenu)}
+                to="/"
+                className={`${
+                  location.pathname == "/"
+                    ? "text-white bg-[#6CD0FB]"
+                    : "text-[#292D32] bg-white "
+                } w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center `}
+              >
+                <FriendsIcon />
+              </Link>
+            </div>
+
             <Link
               to="/message"
               className={`${
                 location.pathname == "/message"
                   ? "text-white bg-[#6CD0FB]"
                   : "text-[#292D32] bg-white"
-              } w-10 h-10  rounded-full flex items-center justify-center relative`}
+              } w-8 h-8 md:w-10 md:h-10  rounded-full flex items-center justify-center relative`}
             >
               <MessageIcon />
             </Link>
           </div>
           <div>
             <button
-              className="bg-[#6CD0FB] px-4 py-2 rounded-md font-Roboto font-semibold text-white text-lg cursor-pointer"
+              className="bg-[#6CD0FB] px-2 py-1 md:px-4 md:py-2 rounded-md font-Roboto font-semibold text-white text-lg cursor-pointer"
               // onClick={handelLogout}
               onClick={() => setShowLogoutModal(true)}
             >

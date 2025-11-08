@@ -54,7 +54,7 @@ const FriendsProfileBtnMenu = ({ setOpenFriendsMenu, friendId }) => {
     <>
       <div
         ref={menuref}
-        className="  bg-green-100  shadow-lg rounded-b-md rounded-tr-md w-[200px] h-auto absolute top-[550px] right-[420px]  z-10 mt-6 "
+        className="  bg-green-100  shadow-lg rounded-b-md rounded-tr-md md:w-[200px] w-[120px] h-[50px] md:h-auto absolute md:top-[550px] top-[290px] md:right-[420px] right-[25px]  z-10 mt-6 "
       >
         <div className="w-0 h-0  border-r-[15px] border-r-transparent  border-b-[15px] border-b-green-100 absolute -top-3 "></div>
         <ul>
@@ -62,11 +62,11 @@ const FriendsProfileBtnMenu = ({ setOpenFriendsMenu, friendId }) => {
             className=" py-2 hover:bg-gray-300 cursor-pointer rounded m-2 "
             onClick={handleUnfriend}
           >
-            <div className="flex items-center gap-x-2 pl-2  ">
-              <div className="text-2xl">
+            <div className="flex items-center md:gap-x-2 gap-x-1 md:pl-2  ">
+              <div className="md:text-2xl text-lg">
                 <FaUserXmark />
               </div>
-              <span className="text-xl font-semibold"> Unfriend</span>
+              <span className="md:text-xl text-lg font-semibold">Unfriend</span>
             </div>
           </li>
         </ul>

@@ -15,7 +15,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-const Chatting = () => {
+const Chatting = ({ friend, onBack }) => {
   const singleFriend = useSelector((state) => state.active.activeUser);
   const user = useSelector((state) => state.login.loggedIn);
   const [messages, setMessages] = useState("");
@@ -171,23 +171,28 @@ const Chatting = () => {
 
   return (
     <>
-      <div className=" h-[800px]">
-        <div className="bg-white py-3 px-5 rounded-t-md ">
+      <div className="  md:h-[800px] h-[950px]  ">
+        <div className="bg-white py-1 md:py-3 px-5 rounded-t-md ">
+          <div className="md:hidden mb-4 pb-2 border-b border-gray-200">
+            <button className="text-blue-500 font-semibold" onClick={onBack}>
+              ← Back
+            </button>
+          </div>
           <div className="flex items-center gap-x-2">
             <div className="w-10 h-10 rounded-full bg-purple-500 overflow-hidden">
               <img
-                src={singleFriend?.profile || avatarImage}
+                src={singleFriend?.profile || avatarImage || friend.profile}
                 alt=""
                 className="w-full h-full object-cover"
               />
             </div>
             <span className="font-sans text-xl  text-[#1e1e1e] font-semibold">
-              {singleFriend?.name}
+              {singleFriend?.name || friend.name}
             </span>
           </div>
         </div>
 
-        <div className="h-[688px]  bg-[#fbf9f5] px-6 py-3 overflow-y-auto ">
+        <div className=" h-[330px] md:h-[688px]  bg-[#fbf9f5] px-6 py-3 overflow-y-auto ">
           {singleFriend?.status === "single"
             ? allMessages?.map((item, i) => {
                 // To show the time only once like Messenger
@@ -229,7 +234,7 @@ const Chatting = () => {
                       )
                     ) : /* Receiver message */
                     item.image ? (
-                      <div className="w-[60%] mr-auto  overflow-hidden my-3">
+                      <div className=" w-[60%] mr-auto  overflow-hidden my-3">
                         <img
                           src={item.image}
                           alt="cat"
@@ -237,7 +242,7 @@ const Chatting = () => {
                         />
                       </div>
                     ) : (
-                      <div className="w-[60%] mr-auto  flex justify-start mb-1">
+                      <div className=" w-[60%] mr-auto  flex justify-start mb-1">
                         <p className="  bg-[#dadada] text-lg py-2 px-4 rounded-md inline-block">
                           {item.message}
                         </p>
@@ -275,7 +280,7 @@ const Chatting = () => {
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="  py-1 px-1  outline-none w-[660px] absolute top-2 left-23 text-lg "
+                className="  py-1 px-1  outline-none w-[180px] md:w-[150px] lg:w-[400px] xl:w-[660px] absolute top-2 left-23 text-lg "
                 onChange={(e) => setMessages(e.target.value)}
                 value={messages}
                 onKeyDown={handleKeyPress}

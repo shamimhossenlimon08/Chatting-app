@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router";
 import avatarImage from "../../assets/avatar-img/avatar-male.jpg";
 import { ActiveSingle } from "../../features/Slices/ActiveSingleSlice";
 
-const Friends = () => {
+const Friends = ({ onFriendClick }) => {
   const user = useSelector((state) => state.login.loggedIn);
   const [friends, setfriends] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,6 +51,10 @@ const Friends = () => {
     } else {
       console.log("null");
     }
+
+    if (onFriendClick) {
+      onFriendClick(friendInfo);
+    }
   };
 
   // filter friends based on search term then use filteredfriends in map function
@@ -63,9 +67,9 @@ const Friends = () => {
 
   return (
     <>
-      <div className="shadow-md rounded-md p-5  bg-gradient-to-b from-white/80 to-white/50 h-[800px]  overflow-y-auto">
+      <div className="shadow-md rounded-md p-5  bg-gradient-to-b from-white/80 to-white/50 h-[950px] md:h-[800px]  overflow-y-auto ">
         <div className="flex items-center justify-between ">
-          <h1 className="font-roboto font-bold text-xl">
+          <h1 className="font-roboto font-bold text-lg md:text-xl">
             {location.pathname === "/message" ? "Messages" : " All Friends"}
           </h1>
           <div className="flex items-center relative">
@@ -87,14 +91,14 @@ const Friends = () => {
               className="flex items-center gap-x-2  hover:bg-slate-100 cursor-pointer px-1 rounded w-[600px]"
               onClick={() => handleProfile(item)}
             >
-              <div className="w-12 h-12 rounded-full  overflow-hidden shrink-0">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full  overflow-hidden shrink-0">
                 {user.uid === item.receiverId ? (
                   <img src={item.currentProfile || avatarImage} alt="" />
                 ) : (
                   <img src={item.receiverProfile || avatarImage} alt="" />
                 )}
               </div>
-              <h3 className="font-sans text-xl font-semibold text-[#1e1e1e]">
+              <h3 className="font-sans text-lg md:text-xl font-semibold text-[#1e1e1e]">
                 {user.uid === item.senderId
                   ? item.receiverName
                   : item.senderName}
@@ -102,7 +106,7 @@ const Friends = () => {
             </div>
             {location.pathname == "/" && (
               <button
-                className="bg-[#6c9efb] text-white text-lg px-4 py-2 rounded-md font-sans cursor-pointer"
+                className="bg-[#6c9efb] text-white  text-md md:text-lg px-2 py-1 md:px-4 md:py-2 rounded-md font-sans cursor-pointer"
                 onClick={() => navigate("/message")}
               >
                 Message

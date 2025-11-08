@@ -101,7 +101,7 @@ const RegistrationForm = ({ toast }) => {
   return (
     <>
       <div>
-        <h1 className=" text-center text-2xl font-texturina font-normal mb-4">
+        <h1 className=" text-center text-xl md:text-2xl font-texturina font-normal mb-4">
           Registration
         </h1>
 
@@ -148,7 +148,7 @@ const RegistrationForm = ({ toast }) => {
           <input
             type="password"
             placeholder="Enter your confirm password"
-            className="w-full px-3 py-2 border border-slate-400 rounded-md outline-none mb-3"
+            className="w-full px-2 md:px-3 py-2 border border-slate-400 rounded-md outline-none mb-3 "
             name="confirmPassword"
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
@@ -166,7 +166,7 @@ const RegistrationForm = ({ toast }) => {
             {loading ? <BeatLoader color="#fff" size={10} /> : "Sign Up"}
           </button>
         </form>
-        <p className="text-gray-500 text-base font-roboto mt-5 ">
+        <p className="text-gray-500 text-sm md:text-base font-roboto mt-5 ">
           Already have an acoount?
           <Link to="/login" className="text-blue-500 hover:underline">
             Sign in

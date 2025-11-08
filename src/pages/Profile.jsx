@@ -147,12 +147,6 @@ const Profile = () => {
     }
   };
 
-  // location er data er modde friendReqId thakle isRequestState true kore dibe jate Respond button ta show kore. are data er modde value thakle tokon e useEffect ti run korbe . "useEffect er dependency te new data add kora hoise". akon are ai useEffect lagbe na and isrequestState o lagbe na karon real time e friend request er status ta pawa jai friendRequest array theke
-
-  // useEffect(() => {
-  //   setIsRequestState(isFriendRequest);
-  // }, [isFriendRequest]);
-
   return (
     <>
       <div>
@@ -161,11 +155,11 @@ const Profile = () => {
         </div>
         <div className="h-screen w-full mt-19">
           <div className="bg-[rgba(255,252,252,0.5)]  h-[70%] w-full">
-            <div className="bg-[rgba(174,173,177,0.5)] h-[50%] w-[70%] mx-auto rounded-b-md"></div>
-            <div className="bg-white h-[40%] w-[65%] mx-auto ">
+            <div className="bg-[rgba(174,173,177,0.5)] h-[50%] md:w-[70%] w-[100%]  mx-auto md:rounded-b-md"></div>
+            <div className="bg-white h-[40%] w-[100%] md:w-[65%]  mx-auto ">
               <div className="flex items-center justify-between">
                 <div className="flex gap-x-3 ">
-                  <div className=" w-[180px] h-[180px] rounded-[50%] translate-y-[-30%] cursor-pointer overflow-hidden">
+                  <div className=" w-[60px] h-[60px] md:w-[180px] md:h-[180px] rounded-[50%] translate-y-[-30%] cursor-pointer overflow-hidden">
                     <img
                       src={
                         data?.reqProfile ||
@@ -177,20 +171,20 @@ const Profile = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h3 className=" text-5xl font-semibold mt-6 ">
+                  <h3 className=" md:text-5xl text-xl font-semibold mt-6 ">
                     {data?.reqName || data?.name || data?.username}
                   </h3>
                 </div>
 
-                <div className="flex gap-x-6">
+                <div className="flex md:gap-x-6 gap-x-1 ml-1 md:ml-0">
                   {isFriendState || isFriend ? (
                     // Friends button
                     <button
-                      className="bg-[rgba(197,192,192,0.5)] text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer "
+                      className="bg-[rgba(197,192,192,0.5)] text-md md:text-xl font-medium font-sans rounded-md md:py-3 md:px-6 py-1 px-1 cursor-pointer "
                       onClick={handleFriendsMenu}
                     >
-                      <div className="flex items-center gap-x-2 ">
-                        <div className="text-2xl">
+                      <div className="flex items-center md:gap-x-2 gap-x-1">
+                        <div className="text-lg md:text-2xl">
                           <FaUserCheck />
                         </div>
 
@@ -200,25 +194,25 @@ const Profile = () => {
                   ) : isRequestSent ? (
                     // Cancel Request button
                     <button
-                      className="bg-white shadow-2xl text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer"
+                      className="bg-white shadow-2xl text-lg  md:text-xl font-medium font-sans rounded-md md:py-2 md:px-5 py-1 px-1 cursor-pointer"
                       onClick={handleCancelReq}
                     >
-                      <div className="flex items-center gap-x-2">
+                      <div className="flex items-center md:gap-x-2 gap-x-1">
                         <p>Cancel Request</p>
                       </div>
                     </button>
                   ) : isFriendRequest ? (
                     showRespondOptions ? (
                       // Confirm + Delete
-                      <div className="flex gap-x-3">
+                      <div className="flex md:gap-x-3  gap-x-1">
                         <button
-                          className="bg-green-500 hover:bg-green-600 transition text-white text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer"
+                          className="bg-green-500 hover:bg-green-600 transition text-white text-lg md:text-xl font-medium font-sans rounded-md md:py-3 md:px-6 py-1 px-1 cursor-pointer"
                           onClick={handleConfirm}
                         >
                           Confirm
                         </button>
                         <button
-                          className="bg-red-500 hover:bg-red-600 transition text-white text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer"
+                          className="bg-red-500 hover:bg-red-600 transition text-white text-lg md:text-xl font-medium font-sans rounded-md md:py-3 md:px-6 py-1 px-1 cursor-pointer"
                           onClick={handleDelete}
                         >
                           Delete
@@ -227,11 +221,11 @@ const Profile = () => {
                     ) : (
                       // Respond button
                       <button
-                        className="bg-green-500  hover:bg-green-600 transition text-white text-xl font-medium font-sans rounded-md py-3 px-6 cursor-pointer"
+                        className="bg-green-500  hover:bg-green-600 transition text-white text-lg md:text-xl font-medium font-sans rounded-md md:py-3 md:px-6 py-1 px-1 cursor-pointer"
                         onClick={handleRespondReq}
                       >
-                        <div className="flex items-center gap-x-2">
-                          <FaUserCheck className="text-2xl" />
+                        <div className="flex items-center md:gap-x-2 gap-x-1">
+                          <FaUserCheck className=" text-lg md:text-2xl" />
                           <p>Respond</p>
                         </div>
                       </button>
@@ -239,10 +233,10 @@ const Profile = () => {
                   ) : (
                     // Add Friend button
                     <button
-                      className="bg-[rgba(156,202,252,0.5)] text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer"
+                      className="bg-[rgba(156,202,252,0.5)] text-lg md:text-xl font-medium font-sans rounded-md md:py-2 md:px-5 py-1 px-1 cursor-pointer"
                       onClick={handleAddFriend}
                     >
-                      <div className="flex items-center gap-x-2">
+                      <div className="flex items-center md:gap-x-2 gap-x-1">
                         <div className="text-blue-700">
                           <AddFriendIcon />
                         </div>
@@ -252,11 +246,11 @@ const Profile = () => {
                   )}
 
                   <button
-                    className="bg-blue-500 text-white text-xl font-medium font-sans rounded-md py-2 px-5 cursor-pointer "
+                    className="bg-blue-500 text-white text-lg md:text-xl font-medium font-sans rounded-md md:py-2 md:px-5 py-1 px-1 cursor-pointer "
                     onClick={() => navigate("/message")}
                   >
-                    <div className="flex items-center gap-x-2">
-                      <div className="text-2xl">
+                    <div className="flex items-center md:gap-x-2 gap-x-1">
+                      <div className=" text-lg md:text-2xl">
                         <RiMessengerFill />
                       </div>
                       <p>Message</p>
@@ -267,7 +261,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="bg-[rgba(201,197,197,0.5)] h-screen w-full pt-8 ">
-            <div className="bg-white h-full w-[65%]  mx-auto rounded-md "></div>
+            <div className="bg-white h-full md:w-[65%] w-[80%] mx-auto rounded-md "></div>
           </div>
         </div>
       </div>

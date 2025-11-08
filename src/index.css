@@ -2,4 +2,5 @@
 @theme {
   --font-roboto: "Roboto", serif;
   --font-texturina: "Texturina", serif;
+  --breakpoint-2xl: [2000px];
 }

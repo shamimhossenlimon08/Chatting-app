@@ -109,7 +109,7 @@ const LoginForm = ({ toast }) => {
             {loading ? <BeatLoader color="#fff" size={10} /> : "Sign in"}
           </button>
         </form>
-        <p className="text-gray-500 font-roboto text-base mt-5">
+        <p className="text-gray-500 font-roboto text-sm md:text-base mt-5">
           Don't have an account?
           <Link to="/registration" className="text-blue-500 hover:underline">
             Sign up

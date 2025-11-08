@@ -5,15 +5,15 @@ import Friends from "../components/Friends";
 const Home = () => {
   return (
     <>
-      <div className=" grid grid-cols-[2fr_4fr]  ">
+      <div className="  md:grid md:grid-cols-[2fr_4fr]  ">
         <div>
           <UserLists />
         </div>
-        <div className=" grid grid-cols-2 gap-x-6 ">
-          <div>
+        <div className=" md:grid md:grid-cols-2 md:gap-x-6 ">
+          <div className=" hidden md:block">
             <FriendRequest />
           </div>
-          <div>
+          <div className=" hidden md:block">
             <Friends />
           </div>
         </div>
