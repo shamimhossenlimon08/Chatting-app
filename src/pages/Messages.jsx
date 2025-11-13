@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Chatting from "../components/Chatting";
 import Friends from "../components/Friends";
 
@@ -10,10 +9,10 @@ const Messages = () => {
     <>
       <div className="  md:flex md:w-[100%] md:space-x-3">
         <div className="hidden md:block md:w-[50%] ">
-          <Friends onFriendClick={setActiveFriend} />
+          <Friends />
         </div>
         <div className="hidden md:block md:w-[50%]  ">
-          <Chatting friend={activeFriend} />
+          <Chatting />
         </div>
       </div>
       <div className="block md:hidden">

@@ -59,6 +59,8 @@ const Chatting = ({ friend, onBack }) => {
 
   // get messages from firebase database
   useEffect(() => {
+    if (!singleFriend || !singleFriend.friendId) return;
+
     onValue(ref(db, "singleMessage"), (snapshot) => {
       const singleMessageArry = [];
       snapshot.forEach((item) => {
@@ -78,7 +80,7 @@ const Chatting = ({ friend, onBack }) => {
       });
       setAllMessages(singleMessageArry);
     });
-  }, [singleFriend.friendId]);
+  }, [singleFriend?.friendId]);
 
   // Date formatting function
   const formatMessengerDate = (date) => {
@@ -171,6 +173,12 @@ const Chatting = ({ friend, onBack }) => {
 
   return (
     <>
+      {!friend && !singleFriend && (
+        <div className="flex items-center justify-center h-full text-gray-500">
+          Please select a friend to start chatting
+        </div>
+      )}
+
       <div className="  md:h-[800px] h-[950px]  ">
         <div className="bg-white py-1 md:py-3 px-5 rounded-t-md ">
           <div className="md:hidden mb-4 pb-2 border-b border-gray-200">
