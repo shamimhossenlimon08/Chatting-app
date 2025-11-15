@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Chatting from "../components/Chatting";
+
 import Friends from "../components/Friends";
+import Chatting from "../components/chatting";
 
 const Messages = () => {
   const [activeFriend, setActiveFriend] = useState(null);
