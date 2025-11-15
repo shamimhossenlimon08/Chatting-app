@@ -189,13 +189,13 @@ const Chatting = ({ friend, onBack }) => {
           <div className="flex items-center gap-x-2">
             <div className="w-10 h-10 rounded-full bg-purple-500 overflow-hidden">
               <img
-                src={singleFriend?.profile || avatarImage || friend.profile}
+                src={singleFriend?.profile || avatarImage || friend?.profile}
                 alt=""
                 className="w-full h-full object-cover"
               />
             </div>
             <span className="font-sans text-xl  text-[#1e1e1e] font-semibold">
-              {singleFriend?.name || friend.name}
+              {singleFriend?.name || friend?.name}
             </span>
           </div>
         </div>
