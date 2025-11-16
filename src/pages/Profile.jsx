@@ -3,7 +3,7 @@ import { FaUserCheck } from "react-icons/fa";
 import { RiMessengerFill } from "react-icons/ri";
 import Navbar from "../components/navbar/Navbar";
 import { useLocation, useNavigate } from "react-router";
-// import avatarImage from "../assets/avatar-img/avatar-male.jpg";
+import avatarImage from "../assets/avatar-img/avatar-male.jpg";
 import { AddFriendIcon } from "../svg/AddFriendIcon";
 import {
   getDatabase,
