@@ -65,6 +65,11 @@ const Friends = ({ onFriendClick }) => {
       .includes(searchTerm.toLowerCase())
   );
 
+  const profileImage =
+    (user.uid === filteredFriends.senderId
+      ? filteredFriends.receiverProfile
+      : filteredFriends.senderProfile) || avatarImage;
+
   return (
     <>
       <div className="shadow-md rounded-md p-5  bg-gradient-to-b from-white/80 to-white/50 h-[950px] md:h-[800px]  overflow-y-auto ">
@@ -92,11 +97,12 @@ const Friends = ({ onFriendClick }) => {
               onClick={() => handleProfile(item)}
             >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full  overflow-hidden shrink-0">
-                {user.uid === item.receiverId ? (
+                {/* {user.uid === item.receiverId ? (
                   <img src={item.currentProfile || avatarImage} alt="" />
                 ) : (
                   <img src={item.receiverProfile || avatarImage} alt="" />
-                )}
+                )} */}
+                <img src={profileImage} alt="" />
               </div>
               <h3 className="font-sans text-lg md:text-xl font-semibold text-[#1e1e1e]">
                 {user.uid === item.senderId

@@ -189,7 +189,7 @@ const Chatting = ({ friend, onBack }) => {
           <div className="flex items-center gap-x-2">
             <div className="w-10 h-10 rounded-full bg-purple-500 overflow-hidden">
               <img
-                src={singleFriend?.profile || avatarImage || friend?.profile}
+                src={singleFriend?.profile || friend?.profile || avatarImage}
                 alt=""
                 className="w-full h-full object-cover"
               />
