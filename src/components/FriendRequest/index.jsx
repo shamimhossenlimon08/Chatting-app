@@ -70,7 +70,13 @@ const FriendRequest = () => {
               onClick={() => handleReqProfile(item)}
             >
               <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden shrink-0 cursor-pointer">
-                <img src={item.currentProfile || avatarImage} />
+                <img
+                  src={item.currentProfile || avatarImage}
+                  onError={(e) => {
+                    e.target.onerror = null; // infinite loop prevent
+                    e.target.src = avatarImage;
+                  }}
+                />
               </div>
               <h3 className="font-sans text-lg md:text-xl font-semibold text-[#1e1e1e] hover:cursor-pointer hover:underline">
                 {item.senderName}
