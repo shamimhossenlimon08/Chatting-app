@@ -288,7 +288,7 @@ const Chatting = ({ friend, onBack }) => {
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="  py-1 px-1  outline-none w-[180px] md:w-[150px] lg:w-[400px] xl:w-[660px] absolute top-2 left-23 text-lg "
+                className="  py-1 px-1  outline-none w-[180px] md:w-[150px] lg:w-[400px] xl:w-[580px] absolute top-2 left-23 text-lg "
                 onChange={(e) => setMessages(e.target.value)}
                 value={messages}
                 onKeyDown={handleKeyPress}
