@@ -179,7 +179,7 @@ const Chatting = ({ friend, onBack }) => {
         </div>
       )}
 
-      <div className=" md:h-[800px]   h-[100vh] ">
+      <div className=" md:h-[800px]   h-[64vh] ">
         <div className="bg-white py-1 md:py-3 px-5 rounded-t-md ">
           <div className="md:hidden mb-4 pb-2 border-b border-gray-200">
             <button className="text-blue-500 font-semibold" onClick={onBack}>
@@ -199,8 +199,7 @@ const Chatting = ({ friend, onBack }) => {
             </span>
           </div>
         </div>
-        {/* h-[64vh] */}
-        <div className=" h-[100vh] md:h-[688px]  bg-[#fbf9f5] px-6 py-3 overflow-y-auto ">
+        <div className=" h-[64vh] md:h-[688px]  bg-[#fbf9f5] px-6 py-3 overflow-y-auto ">
           {singleFriend?.status === "single"
             ? allMessages?.map((item, i) => {
                 // To show the time only once like Messenger
