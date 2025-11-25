@@ -199,7 +199,7 @@ const Chatting = ({ friend, onBack }) => {
             </span>
           </div>
         </div>
-        <div className=" h-[62vh] md:h-[688px]  bg-[#fbf9f5] px-6 py-3 overflow-y-auto ">
+        <div className=" h-[61vh] md:h-[688px]  bg-[#fbf9f5] px-6 py-3 overflow-y-auto ">
           {singleFriend?.status === "single"
             ? allMessages?.map((item, i) => {
                 // To show the time only once like Messenger
